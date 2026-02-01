@@ -1,0 +1,33 @@
+/* NeuPrint MVP - Global Styles
+   Purpose: shared baseline rules that are safe across pages.
+   Note: keep page-specific tokens and component rules inside each page scope.
+*/
+
+/* Shared layout constants used by both pages */
+:is(html.npHome-scope, html.npReport-scope){
+  --containerMax: 1120px;
+  --logoW: 220px;
+  --logoW-m: 190px;
+}
+
+/* Shared base adjustments */
+:is(html.npHome-scope, html.npReport-scope){
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+:is(html.npHome-scope, html.npReport-scope, html.npHome-scope body, html.npReport-scope body){
+  height: 100%;
+}
+
+:is(html.npHome-scope body, html.npReport-scope body){
+  margin: 0;
+}
+
+/* Box sizing: keep report limited to its root to avoid leaking into other pages */
+html.npHome-scope *{
+  box-sizing: border-box;
+}
+#npReportRoot *{
+  box-sizing: border-box;
+}
