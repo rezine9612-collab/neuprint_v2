@@ -52,6 +52,22 @@ export function qsa<T extends Element = Element>(
   return Array.from(r.querySelectorAll(selector)) as T[];
 }
 
+// Shorthand query helpers used by the original HTML scripts.
+// NOTE: "$" is *not* jQuery. It's an alias for qs().
+// - $(selector, root?) -> Element | null
+// - $$(selector, root?) -> Element[]
+export const $ = qs;
+export const $$ = qsa;
+
+// Convenience formatters used across UI scripts.
+export function fmt2(value: unknown, fallback = ""): string {
+  return formatFixed(value, 2, fallback);
+}
+
+export function clamp01(n: number): number {
+  return clamp(n, 0, 1);
+}
+
 export function on<K extends keyof HTMLElementEventMap>(
   el: HTMLElement | Document | Window,
   type: K,
