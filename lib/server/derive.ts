@@ -353,11 +353,11 @@ export function reliabilityFromCff6(v: { AAS: number; CTF: number; RMD: number; 
 // ------------------------------
 
 function ensureBackendShape(report: NeuPrintReport): void {
-  if (!report.backend) report.backend = {};
+  if (!report.backend) report.backend = {} as any;
 
-  if (!report.backend.cff) report.backend.cff = {};
-  if (!report.backend.cff.indicator_scores) report.backend.cff.indicator_scores = {};
-  if (!report.backend.control) report.backend.control = {};
+  if (!report.backend.cff) report.backend.cff = {} as any;
+  if (!report.backend.cff.indicator_scores) report.backend.cff.indicator_scores = {} as any;
+  if (!report.backend.control) report.backend.control = {} as any;
 
   if (!report.backend.control.reliability_score) {
     report.backend.control.reliability_score = {
