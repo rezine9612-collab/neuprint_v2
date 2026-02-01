@@ -8,9 +8,6 @@ export default function AnalyzePage() {
   const router = useRouter();
 
   useEffect(() => {
-    // html scope 적용 (report와 충돌 방지)
-    document.documentElement.classList.add("npHome-scope");
-
     // ============================
     // 1) Intake UX (lib 사용)
     // ============================
@@ -38,8 +35,6 @@ export default function AnalyzePage() {
     // ============================
     // 2) 원본 enter/typewriter 로직 그대로 이식
     // ============================
-
-    if (!document.documentElement.classList.contains("npHome-scope")) return;
 
     const ENTER_DUR = 500;
     const STEP_GAP = 200;
@@ -122,7 +117,6 @@ export default function AnalyzePage() {
 
     return () => {
       cleanupIntake?.();
-      document.documentElement.classList.remove("npHome-scope");
     };
   }, [router]);
 
@@ -133,197 +127,108 @@ export default function AnalyzePage() {
           globals.css에는 넣지 않음
          ============================= */}
       <style jsx global>{`
-        /* =============================
-           HOME PAGE (Analyze) styles
-           - scoped to html.npHome-scope to avoid collisions
-           ============================= */
-        html.npHome-scope {
-          --bg: #ffffff;
-          --text: #0b0f14;
-          --muted: rgba(11, 15, 20, 0.62);
-          --border: rgba(11, 15, 20, 0.12);
-          --soft: rgba(11, 15, 20, 0.06);
-          --focus: rgba(7, 77, 129, 0.35);
-          --accent: #074d81;
-          background: var(--bg);
-          color: var(--text);
-          font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
-            Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        }
+        /*
+          NOTE
+          - 현재 ZIP에는 app.page_v3.html의 전체 CSS가 포함되어 있지 않습니다.
+          - 아래 스타일은 "애니메이션/레이아웃 최소 동작"을 위한 베이스입니다.
+          - 원본 CSS를 받으면 이 블록을 원본 그대로로 교체하세요.
+        */
 
-        html.npHome-scope body {
-          background: var(--bg);
-          color: var(--text);
-        }
-
-        html.npHome-scope .page {
+        /* base layout (minimal) */
+        #npHomeRoot {
           min-height: 100vh;
+          background: #ffffff;
+          color: #0f172a;
         }
-
-        html.npHome-scope .main {
-          padding: 32px 18px 42px;
-        }
-
-        html.npHome-scope .container {
-          max-width: var(--containerMax, 1120px);
+        #npHomeRoot .container {
+          max-width: 1120px;
+          padding: 60px 28px;
           margin: 0 auto;
         }
-
-        html.npHome-scope .hero {
-          padding-top: 16px;
-        }
-
-        html.npHome-scope .brand {
-          display: flex;
-          flex-direction: column;
-          gap: 14px;
-          align-items: flex-start;
-        }
-
-        html.npHome-scope .brandLogo {
-          width: min(72vw, 760px);
+        #npHomeRoot .brandLogo {
+          width: min(680px, 92vw);
           height: auto;
           display: block;
         }
-
-        html.npHome-scope .brandline {
+        #npHomeRoot .brandline {
+          margin-top: 12px;
           font-size: 14px;
-          letter-spacing: 0.2px;
-          color: var(--muted);
+          color: #334155;
         }
-
-        html.npHome-scope #heroTitle {
-          margin: 18px 0 10px;
-          font-size: clamp(28px, 4.1vw, 44px);
-          line-height: 1.08;
+        #npHomeRoot #heroTitle {
+          margin-top: 22px;
+          font-size: 44px;
+          line-height: 1.12;
           letter-spacing: -0.02em;
-          font-weight: 720;
         }
-
-        html.npHome-scope .subtitle {
-          margin: 0 0 18px;
-          max-width: 70ch;
-          font-size: 15px;
+        #npHomeRoot .subtitle {
+          margin-top: 14px;
+          max-width: 780px;
+          font-size: 16px;
           line-height: 1.55;
-          color: var(--muted);
+          color: #475569;
         }
-
-        html.npHome-scope .intakeWrap {
-          margin-top: 10px;
-          max-width: 520px;
+        #npHomeRoot .intakeWrap {
+          margin-top: 18px;
         }
-
-        html.npHome-scope .intakeBox {
-          border: 1px solid var(--border);
-          border-radius: 10px;
-          background: rgba(255, 255, 255, 0.7);
-          box-shadow: 0 8px 26px rgba(11, 15, 20, 0.06);
-          overflow: hidden;
+        #npHomeRoot .intakeBox {
+          width: 340px;
         }
-
-        html.npHome-scope .intakeText {
+        #npHomeRoot .intakeText {
           width: 100%;
-          min-height: 86px;
+          min-height: 64px;
+          padding: 10px 12px;
+          border: 1px solid #e2e8f0;
+          border-radius: 10px;
+          font-size: 13px;
           resize: vertical;
-          border: 0;
-          outline: none;
-          padding: 12px 12px;
-          font: inherit;
-          font-size: 14px;
-          line-height: 1.45;
-          color: var(--text);
-          background: transparent;
         }
-
-        html.npHome-scope .intakeText::placeholder {
-          color: rgba(11, 15, 20, 0.45);
-        }
-
-        html.npHome-scope .intakeText:focus {
-          box-shadow: inset 0 0 0 2px var(--focus);
-        }
-
-        html.npHome-scope .sampleRow {
+        #npHomeRoot .sampleRow {
           margin-top: 10px;
           display: flex;
-          gap: 10px;
-          flex-wrap: wrap;
+          gap: 8px;
         }
-
-        html.npHome-scope .sampleBtn {
-          appearance: none;
-          border: 1px solid var(--border);
-          background: #fff;
-          border-radius: 999px;
-          padding: 8px 12px;
-          font-size: 13px;
-          line-height: 1;
-          cursor: pointer;
-        }
-
-        html.npHome-scope .sampleBtn:hover {
-          background: rgba(7, 77, 129, 0.06);
-          border-color: rgba(7, 77, 129, 0.25);
-        }
-
-        html.npHome-scope .cta {
-          margin-top: 12px;
-          appearance: none;
-          border: 1px solid rgba(7, 77, 129, 0.38);
-          background: rgba(7, 77, 129, 0.08);
-          color: #05304f;
+        #npHomeRoot .sampleBtn {
+          padding: 6px 10px;
+          border: 1px solid #e2e8f0;
           border-radius: 10px;
-          padding: 11px 14px;
-          font-size: 13px;
-          font-weight: 650;
+          background: #fff;
           cursor: pointer;
-          width: 100%;
-          text-align: center;
-          box-shadow: 0 10px 30px rgba(7, 77, 129, 0.08);
-        }
-
-        html.npHome-scope .cta:hover {
-          background: rgba(7, 77, 129, 0.12);
-        }
-
-        html.npHome-scope .cta:active {
-          transform: translateY(1px);
-        }
-
-        html.npHome-scope .footer {
-          margin-top: 12px;
           font-size: 12px;
-          color: rgba(11, 15, 20, 0.55);
+        }
+        #npHomeRoot .cta {
+          margin-top: 10px;
+          padding: 8px 12px;
+          border: 1px solid #0f172a;
+          border-radius: 10px;
+          background: #0f172a;
+          color: #ffffff;
+          cursor: pointer;
+          font-size: 13px;
+        }
+        #npHomeRoot .footer {
+          margin-top: 10px;
+          font-size: 12px;
+          color: #64748b;
         }
 
-        @media (max-width: 520px) {
-          html.npHome-scope .main {
-            padding: 24px 14px 32px;
-          }
-          html.npHome-scope .brandLogo {
-            width: min(86vw, 640px);
-          }
-          html.npHome-scope #heroTitle {
-            font-size: clamp(26px, 7vw, 38px);
-          }
-        }
-
-        html.npHome-scope .npHome-enterY {
+        /* enter animation */
+        #npHomeRoot .npHome-enterY {
           opacity: 0;
           transform: translateY(14px);
           transition: opacity var(--enterDur, 520ms) ease,
             transform var(--enterDur, 520ms) ease;
         }
-        html.npHome-scope .npHome-enterY.isIn {
+        #npHomeRoot .npHome-enterY.isIn {
           opacity: 1;
           transform: translateY(0);
         }
 
-        html.npHome-scope .npHome-twChar {
+        #npHomeRoot .npHome-twChar {
           opacity: 0;
           transition: opacity var(--twFadeDur, 500ms) ease;
         }
-        html.npHome-scope .npHome-twChar.isOn {
+        #npHomeRoot .npHome-twChar.isOn {
           opacity: 1;
         }
       `}</style>
@@ -331,7 +236,7 @@ export default function AnalyzePage() {
       {/* =============================
           원본 HTML 구조 그대로 유지
          ============================= */}
-      <div className="page">
+      <div id="npHomeRoot" className="page">
         <main className="main">
           <div className="container">
             <section className="hero">
