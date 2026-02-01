@@ -43,10 +43,13 @@ export type HydrateOptions = {
   };
 };
 
+const DEFAULT_SIGNATURE = { enabled: true, mode: "animated" as SignatureDrawMode };
+const DEFAULT_CHARTS = { enabled: true, animate: true };
+
 const DEFAULT_OPTS: HydrateOptions = {
   prefer: "window",
-  signature: { enabled: true, mode: "animated" },
-  charts: { enabled: true, animate: true },
+  signature: DEFAULT_SIGNATURE,
+  charts: DEFAULT_CHARTS,
 };
 
 type AnyReport = Record<string, any>;
@@ -265,14 +268,14 @@ export function hydrateReportPage(opts: HydrateOptions = DEFAULT_OPTS) {
     ...DEFAULT_OPTS,
     ...opts,
     signature: {
-      ...DEFAULT_OPTS.signature,
+      ...DEFAULT_SIGNATURE,
       ...(opts.signature ?? {}),
-      enabled: opts.signature?.enabled ?? DEFAULT_OPTS.signature.enabled,
+      enabled: opts.signature?.enabled ?? DEFAULT_SIGNATURE.enabled,
     },
     charts: {
-      ...DEFAULT_OPTS.charts,
+      ...DEFAULT_CHARTS,
       ...(opts.charts ?? {}),
-      enabled: opts.charts?.enabled ?? DEFAULT_OPTS.charts.enabled,
+      enabled: opts.charts?.enabled ?? DEFAULT_CHARTS.enabled,
     },
   };
 
