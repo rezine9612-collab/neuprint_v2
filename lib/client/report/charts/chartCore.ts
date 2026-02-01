@@ -36,6 +36,7 @@ export const MOBILE_CHART_START_DELAY = 10;
 // Runtime theme cache (mutable object to keep importers stable)
 export const THEME: {
   text: string;
+  muted: string;
   accentA: string;
   accentB: string;
   accentC: string;
@@ -46,6 +47,7 @@ export const THEME: {
   pillN: string;
 } = {
   text: "",
+  muted: "",
   accentA: "",
   accentB: "",
   accentC: "",
@@ -70,6 +72,7 @@ export function initChartRuntime(): void {
   // Theme tokens to JS (from CSS)
   const css = getComputedStyle(document.documentElement);
   THEME.text = css.getPropertyValue("--text").trim();
+  THEME.muted = css.getPropertyValue("--muted").trim();
   THEME.accentA = css.getPropertyValue("--accentA").trim();
   THEME.accentB = css.getPropertyValue("--accentB").trim();
   THEME.accentC = css.getPropertyValue("--accentC").trim();
