@@ -20,7 +20,7 @@ import { readReportFromIntakeFallback } from "../intake";
 // - ui.ts: report JSON -> DOM 텍스트 매핑을 모아두는 레이어
 // - charts/*: Chart.js 렌더링 모듈
 import { renderReportUI } from "./ui";
-import { mountAllCharts } from "./charts/chartCore";
+import { initChartRuntime } from "./charts/chartCore";
 import { mountCffRadar } from "./charts/cffRadar";
 import { mountRslCohort } from "./charts/rslCohort";
 import { mountRslRadar } from "./charts/rslRadar";
@@ -246,7 +246,8 @@ function maybeDrawSignature(r: AnyReport, mode: SignatureDrawMode) {
 /** 차트 전체 마운트: chart id 기반 deferred mount 패턴을 chartCore에서 구현할 예정 :contentReference[oaicite:6]{index=6} */
 function mountCharts(r: AnyReport, animate: boolean) {
   // chartCore는 공통 Chart.js 인스턴스 보관, IO(IntersectionObserver) 등 담당
-  mountAllCharts();
+  // NOTE: must be initialized at runtime (browser only) to avoid SSR window/document access.
+  initChartRuntime();
 
   // 각 차트별 모듈에서 해당 id의 canvas가 있을 때만 mount하도록 작성한다.
   mountAgency(r, { animate });

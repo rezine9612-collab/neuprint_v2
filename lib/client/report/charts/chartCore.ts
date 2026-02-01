@@ -19,40 +19,79 @@ export const NP_DEBUG = false;
 /* ================================
    Mobile detection + delay (top)
 ================================ */
-export const IS_MOBILE = window.matchMedia("(max-width: 680px)").matches;
+// NOTE: This module is imported by Next.js client components that are also
+// evaluated in SSR. Therefore, NEVER access `window` / `document` at module
+// top-level. We keep the original HTML logic, but make it runtime-initialized.
+
+export const IS_MOBILE =
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(max-width: 680px)").matches;
+
 export const MOBILE_CHART_START_DELAY = 10;
 
 /* =========================================================
    Theme tokens to JS (from CSS)
 ========================================================= */
-export const css = getComputedStyle(document.documentElement);
-
-export const THEME = {
-  text: css.getPropertyValue("--text").trim(),
-  accentA: css.getPropertyValue("--accentA").trim(),
-  accentB: css.getPropertyValue("--accentB").trim(),
-  accentC: css.getPropertyValue("--accentC").trim(),
-  accentD: css.getPropertyValue("--accentD").trim(),
-  accentE: css.getPropertyValue("--accentE").trim(),
-  pillB: css.getPropertyValue("--pillB").trim(),
-  pillD: css.getPropertyValue("--pillD").trim(),
-  pillN: css.getPropertyValue("--pillN").trim(),
+// Runtime theme cache (mutable object to keep importers stable)
+export const THEME: {
+  text: string;
+  accentA: string;
+  accentB: string;
+  accentC: string;
+  accentD: string;
+  accentE: string;
+  pillB: string;
+  pillD: string;
+  pillN: string;
+} = {
+  text: "",
+  accentA: "",
+  accentB: "",
+  accentC: "",
+  accentD: "",
+  accentE: "",
+  pillB: "",
+  pillD: "",
+  pillN: "",
 };
 
-export const CHART_ANIM_MS =
-  parseInt(css.getPropertyValue("--chartAnimDuration"), 10) || 1400;
-export const CHART_DELAY_MS =
-  parseInt(css.getPropertyValue("--chartAnimDelay"), 10) || 180;
+// Defaults (will be refreshed from CSS at runtime)
+export let CHART_ANIM_MS = 1400;
+export let CHART_DELAY_MS = 180;
 
-/* =========================================================
-   Chart defaults (only if Chart exists)
-========================================================= */
-if ((window as any).Chart) {
-  const Chart = (window as any).Chart;
-  Chart.defaults.font.family =
-    '"Barlow", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif';
-  Chart.defaults.font.size = 11;
-  Chart.defaults.color = THEME.text || "#0f172a";
+/**
+ * Initialize runtime theme tokens and Chart defaults.
+ * Call this ONLY in the browser, after the report CSS has been applied.
+ */
+export function initChartRuntime(): void {
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+
+  // Theme tokens to JS (from CSS)
+  const css = getComputedStyle(document.documentElement);
+  THEME.text = css.getPropertyValue("--text").trim();
+  THEME.accentA = css.getPropertyValue("--accentA").trim();
+  THEME.accentB = css.getPropertyValue("--accentB").trim();
+  THEME.accentC = css.getPropertyValue("--accentC").trim();
+  THEME.accentD = css.getPropertyValue("--accentD").trim();
+  THEME.accentE = css.getPropertyValue("--accentE").trim();
+  THEME.pillB = css.getPropertyValue("--pillB").trim();
+  THEME.pillD = css.getPropertyValue("--pillD").trim();
+  THEME.pillN = css.getPropertyValue("--pillN").trim();
+
+  CHART_ANIM_MS = parseInt(css.getPropertyValue("--chartAnimDuration"), 10) || 1400;
+  CHART_DELAY_MS = parseInt(css.getPropertyValue("--chartAnimDelay"), 10) || 180;
+
+  // Chart defaults (only if Chart exists)
+  if ((window as any).Chart) {
+    const Chart = (window as any).Chart;
+    Chart.defaults.font.family =
+      '"Barlow", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif';
+    Chart.defaults.font.size = 11;
+    Chart.defaults.color = THEME.text || "#0f172a";
+  }
+
+  ensureChartIO();
 }
 
 /* =========================================================
@@ -88,14 +127,18 @@ function onChartEnter(entries: IntersectionObserverEntry[]) {
   });
 }
 
-export const chartIO: IntersectionObserver | null =
-  "IntersectionObserver" in window
-    ? new IntersectionObserver(onChartEnter, {
-        root: null,
-        threshold: 0.18,
-        rootMargin: "120px 0px",
-      })
-    : null;
+export let chartIO: IntersectionObserver | null = null;
+
+function ensureChartIO(): void {
+  if (chartIO) return;
+  if (typeof window === "undefined") return;
+  if (!("IntersectionObserver" in window)) return;
+  chartIO = new IntersectionObserver(onChartEnter, {
+    root: null,
+    threshold: 0.18,
+    rootMargin: "120px 0px",
+  });
+}
 
 /* =========================================================
    Safe chart create/destroy (from HTML)
