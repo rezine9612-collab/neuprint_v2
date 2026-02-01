@@ -133,6 +133,181 @@ export default function AnalyzePage() {
           globals.css에는 넣지 않음
          ============================= */}
       <style jsx global>{`
+        /* =============================
+           HOME PAGE (Analyze) styles
+           - scoped to html.npHome-scope to avoid collisions
+           ============================= */
+        html.npHome-scope {
+          --bg: #ffffff;
+          --text: #0b0f14;
+          --muted: rgba(11, 15, 20, 0.62);
+          --border: rgba(11, 15, 20, 0.12);
+          --soft: rgba(11, 15, 20, 0.06);
+          --focus: rgba(7, 77, 129, 0.35);
+          --accent: #074d81;
+          background: var(--bg);
+          color: var(--text);
+          font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+            Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        }
+
+        html.npHome-scope body {
+          background: var(--bg);
+          color: var(--text);
+        }
+
+        html.npHome-scope .page {
+          min-height: 100vh;
+        }
+
+        html.npHome-scope .main {
+          padding: 32px 18px 42px;
+        }
+
+        html.npHome-scope .container {
+          max-width: var(--containerMax, 1120px);
+          margin: 0 auto;
+        }
+
+        html.npHome-scope .hero {
+          padding-top: 16px;
+        }
+
+        html.npHome-scope .brand {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+          align-items: flex-start;
+        }
+
+        html.npHome-scope .brandLogo {
+          width: min(72vw, 760px);
+          height: auto;
+          display: block;
+        }
+
+        html.npHome-scope .brandline {
+          font-size: 14px;
+          letter-spacing: 0.2px;
+          color: var(--muted);
+        }
+
+        html.npHome-scope #heroTitle {
+          margin: 18px 0 10px;
+          font-size: clamp(28px, 4.1vw, 44px);
+          line-height: 1.08;
+          letter-spacing: -0.02em;
+          font-weight: 720;
+        }
+
+        html.npHome-scope .subtitle {
+          margin: 0 0 18px;
+          max-width: 70ch;
+          font-size: 15px;
+          line-height: 1.55;
+          color: var(--muted);
+        }
+
+        html.npHome-scope .intakeWrap {
+          margin-top: 10px;
+          max-width: 520px;
+        }
+
+        html.npHome-scope .intakeBox {
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.7);
+          box-shadow: 0 8px 26px rgba(11, 15, 20, 0.06);
+          overflow: hidden;
+        }
+
+        html.npHome-scope .intakeText {
+          width: 100%;
+          min-height: 86px;
+          resize: vertical;
+          border: 0;
+          outline: none;
+          padding: 12px 12px;
+          font: inherit;
+          font-size: 14px;
+          line-height: 1.45;
+          color: var(--text);
+          background: transparent;
+        }
+
+        html.npHome-scope .intakeText::placeholder {
+          color: rgba(11, 15, 20, 0.45);
+        }
+
+        html.npHome-scope .intakeText:focus {
+          box-shadow: inset 0 0 0 2px var(--focus);
+        }
+
+        html.npHome-scope .sampleRow {
+          margin-top: 10px;
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        html.npHome-scope .sampleBtn {
+          appearance: none;
+          border: 1px solid var(--border);
+          background: #fff;
+          border-radius: 999px;
+          padding: 8px 12px;
+          font-size: 13px;
+          line-height: 1;
+          cursor: pointer;
+        }
+
+        html.npHome-scope .sampleBtn:hover {
+          background: rgba(7, 77, 129, 0.06);
+          border-color: rgba(7, 77, 129, 0.25);
+        }
+
+        html.npHome-scope .cta {
+          margin-top: 12px;
+          appearance: none;
+          border: 1px solid rgba(7, 77, 129, 0.38);
+          background: rgba(7, 77, 129, 0.08);
+          color: #05304f;
+          border-radius: 10px;
+          padding: 11px 14px;
+          font-size: 13px;
+          font-weight: 650;
+          cursor: pointer;
+          width: 100%;
+          text-align: center;
+          box-shadow: 0 10px 30px rgba(7, 77, 129, 0.08);
+        }
+
+        html.npHome-scope .cta:hover {
+          background: rgba(7, 77, 129, 0.12);
+        }
+
+        html.npHome-scope .cta:active {
+          transform: translateY(1px);
+        }
+
+        html.npHome-scope .footer {
+          margin-top: 12px;
+          font-size: 12px;
+          color: rgba(11, 15, 20, 0.55);
+        }
+
+        @media (max-width: 520px) {
+          html.npHome-scope .main {
+            padding: 24px 14px 32px;
+          }
+          html.npHome-scope .brandLogo {
+            width: min(86vw, 640px);
+          }
+          html.npHome-scope #heroTitle {
+            font-size: clamp(26px, 7vw, 38px);
+          }
+        }
+
         html.npHome-scope .npHome-enterY {
           opacity: 0;
           transform: translateY(14px);
