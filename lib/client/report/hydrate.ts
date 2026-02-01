@@ -12,7 +12,7 @@
    - 서버 로직, 계산 로직은 여기 넣지 않는다.
 */
 
-import { $, setText, setHTML, safeNumber, fmt2, clamp01 } from "../dom";
+import { $, byId, setText, setHTML, safeNumber, fmt2, clamp01 } from "../dom";
 import { prefersReducedMotion } from "../motion";
 import { readReportFromIntakeFallback } from "../intake";
 
@@ -168,16 +168,16 @@ function renderCffPatterns(r: AnyReport) {
   const p2 = op.secondary_pattern || op.secondary || op.secondary_label || "";
   const conf = op.type_confidence == null ? "" : fmt2(Number(op.type_confidence));
 
-  setText("cffPrimary", String(p1));
-  setText("cffPrimary2", String(p1));
-  setText("cffSecondary", String(p2));
-  setText("cffSecondary2", String(p2));
-  setText("cffTypeConfidence", String(conf));
-  setText("cffTypeConfidence2", String(conf));
-  setText("cffPatternMeaning", String(op.explanation || op.meaning || ""));
+  setText(byId("cffPrimary"), String(p1));
+  setText(byId("cffPrimary2"), String(p1));
+  setText(byId("cffSecondary"), String(p2));
+  setText(byId("cffSecondary2"), String(p2));
+  setText(byId("cffTypeConfidence"), String(conf));
+  setText(byId("cffTypeConfidence2"), String(conf));
+  setText(byId("cffPatternMeaning"), String(op.explanation || op.meaning || ""));
 
   const sigNote = r?.cff?.signature_fingerprint?.description || "";
-  setText("signatureNote", String(sigNote));
+  setText(byId("signatureNote"), String(sigNote));
 }
 
 /** RSL(ARC) 패널 텍스트는 HTML 구조가 계속 바뀔 수 있으니, ui.ts에서 통합 매핑을 권장 */
@@ -188,12 +188,12 @@ function renderRslBasic(r: AnyReport) {
   const levelText = String(`${overallLevel} ${overallLabel}`).trim();
 
   // 예시로 id 하나만 잡아둔다. 실제 report.html의 id에 맞춰 ui.ts로 이관 권장.
-  if ($("rslLevel")) setText("rslLevel", levelText);
+  if ($("rslLevel")) setText(byId("rslLevel"), levelText);
 
   const fri = safeNumber(r?.rsl?.fri, 0);
   const stability = safeNumber(r?.rsl?.stability_index, 0);
-  if ($("rslFRI")) setText("rslFRI", fmt2(fri));
-  if ($("rslStability")) setText("rslStability", fmt2(stability));
+  if ($("rslFRI")) setText(byId("rslFRI"), fmt2(fri));
+  if ($("rslStability")) setText(byId("rslStability"), fmt2(stability));
 }
 
 /** signatureCanvas가 있으면 표시만 보장.
@@ -268,7 +268,7 @@ export function hydrateReportPage(opts: HydrateOptions = DEFAULT_OPTS) {
   const r = getReportData(merged.prefer);
   if (!r) {
     // report가 없으면 최소 문구만
-    setText("reportError", "No report data found.");
+    setText(byId("reportError"), "No report data found.");
     return;
   }
 
