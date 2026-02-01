@@ -95,13 +95,15 @@ function getMixFromReport(r: any) {
     if (d && (d.human_pct != null || d.hybrid_pct != null || d.ai_pct != null)) {
       // If only Hybrid/AI are provided (common in some backends), derive Human as the residual.
       // This prevents accidental pickup of unrelated confidence fields.
-      const yp0 = d.hybrid_pct == null ? null : Number(d.hybrid_pct);
-      const ap0 = d.ai_pct == null ? null : Number(d.ai_pct);
-      let hp0 = d.human_pct == null ? null : Number(d.human_pct);
+      // NOTE: Next.js typecheck is strict about Math.min/Math.max taking only numbers.
+      // Use NaN as the "missing" sentinel instead of null so TS stays happy.
+      const yp0 = d.hybrid_pct == null ? Number.NaN : Number(d.hybrid_pct);
+      const ap0 = d.ai_pct == null ? Number.NaN : Number(d.ai_pct);
+      let hp0 = d.human_pct == null ? Number.NaN : Number(d.human_pct);
 
       const yp = Math.max(0, Math.min(100, Number.isFinite(yp0) ? yp0 : 0));
       const ap = Math.max(0, Math.min(100, Number.isFinite(ap0) ? ap0 : 0));
-      if (hp0 == null && (d.hybrid_pct != null || d.ai_pct != null)) {
+      if (!Number.isFinite(hp0) && (d.hybrid_pct != null || d.ai_pct != null)) {
         hp0 = 100 - yp - ap;
       }
       const hp = Math.max(0, Math.min(100, Number.isFinite(hp0) ? hp0 : 0));

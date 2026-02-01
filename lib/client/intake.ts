@@ -201,3 +201,35 @@ export function readIntakeFromSession(): string {
   if (typeof window === "undefined") return "";
   return window.sessionStorage.getItem("neuprint.intakeText") ?? "";
 }
+
+/**
+ * Report JSON fallback reader used by /report when it is opened without an id.
+ *
+ * analyze/page.tsx stores the analyze response in sessionStorage under `np_report_json`.
+ * We keep this function in the client intake module so report hydration can stay
+ * browser-only and avoid pulling server code.
+ */
+export function readReportFromIntakeFallback(): Record<string, any> | null {
+  if (typeof window === "undefined") return null;
+
+  const tryParse = (raw: string | null): Record<string, any> | null => {
+    if (!raw) return null;
+    try {
+      const v = JSON.parse(raw);
+      return v && typeof v === "object" ? (v as Record<string, any>) : null;
+    } catch {
+      return null;
+    }
+  };
+
+  // Primary: sessionStorage written by /analyze
+  const fromSession = tryParse(window.sessionStorage.getItem("np_report_json"));
+  if (fromSession) return fromSession;
+
+  // Optional legacy keys (in case other pages wrote them)
+  const legacy =
+    tryParse(window.sessionStorage.getItem("neuprint.report")) ||
+    tryParse(window.localStorage.getItem("neuprint.report")) ||
+    tryParse(window.localStorage.getItem("np_report_json"));
+  return legacy;
+}
