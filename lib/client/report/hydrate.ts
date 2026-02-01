@@ -258,11 +258,22 @@ function mountCharts(r: AnyReport, animate: boolean) {
 
 /** 외부에서 호출할 메인 함수 */
 export function hydrateReportPage(opts: HydrateOptions = DEFAULT_OPTS) {
+  // NOTE: `signature.enabled` and `charts.enabled` are required booleans.
+  // When spreading `opts.signature`, a present-but-undefined `enabled` can
+  // overwrite the default and break type-safety.
   const merged: HydrateOptions = {
     ...DEFAULT_OPTS,
     ...opts,
-    signature: { ...DEFAULT_OPTS.signature, ...(opts.signature || {}) },
-    charts: { ...DEFAULT_OPTS.charts, ...(opts.charts || {}) },
+    signature: {
+      ...DEFAULT_OPTS.signature,
+      ...(opts.signature ?? {}),
+      enabled: opts.signature?.enabled ?? DEFAULT_OPTS.signature.enabled,
+    },
+    charts: {
+      ...DEFAULT_OPTS.charts,
+      ...(opts.charts ?? {}),
+      enabled: opts.charts?.enabled ?? DEFAULT_OPTS.charts.enabled,
+    },
   };
 
   const r = getReportData(merged.prefer);
