@@ -1,5 +1,11 @@
 /* Auto-extracted from report.page_v3.html. Keep identical. */
 
+declare global {
+  interface Window {
+    renderNeuPrint?: (reportObject: any) => void;
+  }
+}
+
 export function runReportV3() {
   (function(){
     if(!document.documentElement.classList.contains('npReport-scope')) return;
