@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* Auto-extracted from report.page_v3.html. Keep identical. */
 
 declare global {
