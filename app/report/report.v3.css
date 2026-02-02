@@ -1,0 +1,1217 @@
+/* =========================================================
+   Design Tokens
+========================================================= */
+
+      html.npReport-scope{
+        
+        --containerMax: 1120px;
+        --sidePad: 27px;
+
+        --radius: 16px;
+
+        
+        --logoW: 220px;
+        --logoW-m: 190px;
+
+        
+        --bg: #ffffff;
+        --panel: #ffffff;
+        --text: #0f172a;
+        --muted: #0f172a;
+        --border: #e2e8f0;
+        --soft: #f8fafc;
+
+        
+        --accentA: #074d81;
+        --accentB: #40b1e6;
+        --accentC: #20cbc2;
+        --accentD: #fabb05;
+        --accentE: #f97b17;
+
+        
+        --pillA: rgba(7, 77, 129, 0.18);
+        --pillB: rgba(64, 177, 230, 0.18);
+        --pillC: rgba(32, 203, 194, 0.18);
+        --pillD: rgba(250, 187, 5, 0.2);
+        --pillE: rgba(249, 123, 23, 0.18);
+        --pillN: rgba(245, 245, 245, 0.96);
+        --pillNeutral: rgba(238, 238, 238, 0.93);
+
+        
+        --chipTopGap: 26px;
+        --headerBottomGap: 10px;
+
+        
+        --sectionTopGap-1: 0px;
+        --sectionTopGap-2: -100px;
+
+        
+        --chartH: 240px;
+        --chartH-m: 220px;
+
+        --donutH: 300px;
+        --donutH-m: 240px;
+
+        --radarH: 300px;
+        --radarH-m: 340px;
+
+        --sig: 264px;
+        --sig-m: 288px;
+
+        
+        --gaugeH: 180px;
+        --gaugeH-m: 165px;
+
+        
+        --chartAnimDuration: 2100ms;
+        --chartAnimDelay: 270ms;
+        --sigAnimMs: 4200;
+      }
+
+      /* =========================================================
+   Base / Reset
+========================================================= */
+
+      #npReportRoot *{
+        box-sizing: border-box;
+      }
+      html.npReport-scope, html.npReport-scope html.npReport-scope body{
+        height: 100%;
+      }
+      html.npReport-scope{
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      html.npReport-scope body{
+        margin: 0;
+        font-family:
+          "Barlow",
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        color: var(--text);
+        font-weight: 400;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background: var(--bg);
+        min-height: 100svh;
+        overflow-y: scroll;
+      }
+      #npReportRoot .container{
+        max-width: var(--containerMax);
+        margin: 0 auto;
+        padding: 18px calc(var(--sidePad) + env(safe-area-inset-left)) 56px
+          calc(var(--sidePad) + env(safe-area-inset-right));
+      }
+
+      /* =========================================================
+   Layout / Header
+========================================================= */
+
+      
+      #npReportRoot .topbar{
+        display: block;
+        padding: 10px 0 14px;
+        background: #fff;
+      }
+      #npReportRoot .headerTopRow{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+      }
+      #npReportRoot .headerLeft{
+        flex: 1 1 auto;
+        min-width: 0;
+        margin-top: -12px;
+      }
+      #npReportRoot .headerRight{
+        flex: 0 0 auto;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        margin-top: 14px;
+      }
+      #npReportRoot .headerBelowRow{
+        margin-top: 10px;
+        padding-bottom: var(--headerBottomGap);
+      }
+      #npReportRoot .headerBrand{
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      #npReportRoot .brandLogo{
+        width: var(--logoW);
+        height: auto;
+        display: block;
+        margin-left: -10px;
+        margin-top: 19px;
+      }
+      #npReportRoot .brandline{
+        display: inline-flex;
+        align-items: center;
+        margin-top: 10px;
+        gap: 8px;
+        font-size: 15px;
+        color: var(--muted);
+        flex-wrap: wrap;
+      }
+      #npReportRoot .title{
+        margin: 22px 0 4px;
+        font-size: 42px;
+        font-weight: 600;
+        line-height: 1.15;
+      }
+      #npReportRoot .subtitle{
+        margin: 8px 0 35px 0;
+        font-size: 18px;
+        color: var(--muted);
+        line-height: 1.35;
+      } 
+      #npReportRoot .metaRow{
+        margin-top: var(--chipTopGap);
+        display: flex;
+        flex-wrap: nowrap; 
+        gap: 10px; 
+        align-items: stretch;
+        width: 100%;
+      } 
+      #npReportRoot .chip{
+        flex: 1 1 0; 
+        min-width: max-content; 
+        width: auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+
+        
+        box-sizing: border-box;
+        padding: 6px 6px 6px 14px; 
+        background: #f5f5f5;
+        border-radius: 12px; 
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        line-height: 1.2; 
+      } 
+      #npReportRoot .chipLabel{
+        white-space: nowrap;
+        overflow: visible;
+        text-overflow: clip;
+      } 
+      #npReportRoot .chip .pill{
+        margin-left: auto;
+        flex: 0 0 auto;
+        white-space: nowrap;
+        overflow: visible;
+        text-overflow: clip;
+      } 
+      #npReportRoot .pill{
+        
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 8px 10px; 
+        border-radius: 8px; 
+        font-size: 13px;
+        font-weight: 600;
+        background: #ffffff;
+        color: var(--text);
+        white-space: nowrap;
+        line-height: 1;
+      }
+      #npReportRoot .pill.toneB{
+        background: #fff;
+        color: var(--accentB);
+      }
+      #npReportRoot .pill.toneC{
+        background: #fff;
+        color: var(--accentC);
+      }
+      #npReportRoot .pill.toneD{
+        background: #fff;
+        color: var(--accentD);
+      }
+      #npReportRoot .pill.toneE{
+        background: #fff;
+        color: var(--accentE);
+      }
+      #npReportRoot .pill.toneN{
+        background: #fff;
+        color: var(--text);
+      } 
+      #npReportRoot .rightMeta{
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      #npReportRoot .qrBox{
+        padding: 10px;
+        background: #fff;
+        width: 116px;
+        flex: 0 0 auto;
+        margin-top: -16px;
+        transform: translateY(-4px);
+      }
+      #npReportRoot .qrBox img{
+        display: block;
+        width: 94px;
+        height: 94px;
+        margin: 0 auto;
+      }
+      #npReportRoot .verifyText{
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.35;
+        margin-top: -5px;
+        max-width: 420px;
+        text-align: right;
+      }
+      #npReportRoot .verifyText span{
+        font-weight: 500;
+        color: var(--text);
+      }
+      #npReportRoot .tab.active{
+        border: 0px solid rgba(15, 23, 42, 0.4);
+        outline: 4px solid rgba(15, 23, 42, 0.78);
+        outline-offset: 0;
+        font-weight: 500;
+      } 
+      #npReportRoot .grid{
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 14px;
+        margin-top: 16px;
+        scroll-margin-top: 92px;
+      }
+      #npReportRoot .card{
+        grid-column: span 12;
+        background: var(--panel);
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+      }
+      #npReportRoot .sectionBlock{
+        padding: 14px 0;
+      }
+      #npReportRoot .cardHeader{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+      #npReportRoot .cardTitle{
+        font-weight: 600;
+        font-size: 24px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      #npReportRoot .muted{
+        color: var(--muted);
+      }
+      #npReportRoot .small{
+        font-size: 15px;
+        font-weight: 600;
+      }
+      #npReportRoot .tiny{
+        font-size: 13px;
+        line-height: 1.4;
+      }
+      #npReportRoot .code{
+        font-family:
+          "Barlow",
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+      }
+      #npReportRoot #tab-authorship{
+        margin-top: var(--sectionTopGap-2);
+      } 
+      #npReportRoot .metrics{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-top: 10px;
+      }
+      #npReportRoot .metricBox{
+        border: 1px solid rgba(226, 232, 240, 0.85);
+        border-radius: 8px;
+        background: #fff;
+        padding: 12px;
+        min-height: 92px;
+      }
+      #npReportRoot .metricLabel{
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      #npReportRoot .metricValue{
+        margin-top: 6px;
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      #npReportRoot .metricNote{
+        margin-top: 6px;
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.35;
+        font-weight: 400;
+      }
+      #npReportRoot #mRslLevel{
+        color: var(--accentE);
+      }
+      #npReportRoot #mRslMean{
+        color: var(--accentC);
+      }
+      #npReportRoot #mRslCohort{
+        color: var(--accentB);
+      }
+      #npReportRoot #mRslStability{
+        color: var(--accentD);
+      } 
+      #npReportRoot .twoCol{
+        display: grid;
+        align-items: stretch;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px; 
+        margin-top: 12px;
+      }
+      #npReportRoot .twoCol > *{
+        height: 100%;
+      } 
+      #npReportRoot #tab-rsl #rslResultsByDimension tr:last-child td{
+        border-bottom: 0 !important;
+      }
+      #npReportRoot #tab-rsl #rslResultsByDimension tr:last-child{
+        border-bottom: 0 !important;
+      } 
+      #npReportRoot #tab-rsl .arcTableFrame{
+        border-bottom: 0 !important;
+      }
+      #npReportRoot .panel{
+        border: 1px solid rgba(226, 232, 240, 0.85);
+        border-radius: 8px;
+        padding: 12px;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+      }
+      #npReportRoot .kpiRow{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        margin-top: 10px;
+      }
+      #npReportRoot .kpi{
+        background: #f5f5f5;
+        padding: 8px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        color: var(--text);
+        line-height: 1;
+        font-weight: 400;
+      }
+      #npReportRoot .kpiLabel{
+        font-weight: 600; 
+      }
+      #npReportRoot .kpiLabel .code{
+        font-weight: 400; 
+      } 
+      #npReportRoot .chartBox{
+        border: 1px solid rgba(226, 232, 240, 0.85);
+        border-radius: 8px;
+        background: #fff;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        overflow: hidden;
+        height: 100%;
+      } 
+      #npReportRoot .chartCanvasWrap canvas{
+        width: 100% !important;
+        height: 100% !important;
+        display: block;
+      }
+      #npReportRoot .chartBox.distBar .chartCanvasWrap{
+        height: 140px;
+      }
+      #npReportRoot .chartTitleText{
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        line-height: 1.25;
+      }
+      #npReportRoot .chartCanvasWrap{
+        position: relative;
+        width: 100%;
+        height: var(--chartH);
+        min-height: var(--chartH);
+        max-height: var(--chartH);
+        flex: 0 0 auto;
+      }
+      #npReportRoot .chartBox.radarBox .chartCanvasWrap{
+        height: var(--radarH);
+        min-height: var(--radarH);
+        max-height: var(--radarH);
+      } 
+      #npReportRoot canvas{
+        width: 100% !important;
+        height: 100% !important;
+      } 
+      #npReportRoot .signatureBox .chartCanvasWrap{
+        aspect-ratio: 1 / 1;
+        width: 100%;
+        max-width: var(--sig);
+        margin: 0 auto;
+        position: relative;
+        height: var(--sig);
+        min-height: var(--sig);
+        max-height: var(--sig);
+        flex: 0 0 auto;
+      }
+      #npReportRoot .signatureBox #signatureCanvas{
+        width: 100% !important;
+        height: 100% !important;
+        display: block;
+      } 
+      #npReportRoot table{
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      #npReportRoot th, #npReportRoot td{
+        padding: 9px 10px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+      #npReportRoot th{
+        text-align: left;
+        font-size: 13px;
+        color: var(--muted);
+        font-weight: 600;
+        background: #fff;
+      }
+      #npReportRoot tr:last-child td{
+        border-bottom: 0;
+      } 
+      #npReportRoot .footer{
+        margin-top: 22px;
+        padding: 14px 0 0;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 13px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        font-weight: 400;
+      } 
+      #npReportRoot .decisionCompression{
+        margin-top: 14px;
+        margin-bottom: -20px;
+        padding: 14px 18px;
+        background: #ffffff;
+        border-radius: 12px;
+        border: 5px solid #f5f5f5;
+        font-style: italic;
+        font-size: clamp(15px, 4.2vw, 18px);
+        font-weight: 500;
+      }
+      #npReportRoot .decisionCompressionLine{
+        line-height: 1.4;
+      }
+      
+
+      /* =========================================================
+   Components / Role Fit Inference Flow (HTML)
+   - SVG removed
+   - Compact pill-card rows for high readability on mobile
+========================================================= */
+
+#npReportRoot #tab-hr .rfFlow{
+  --rfGap: 9px;
+  margin-top:10px;
+  margin-bottom:3px;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background: transparent;
+  position:relative;
+}
+
+/* left rail line */
+#npReportRoot #tab-hr .rfFlow::before{
+  display:none;
+
+  content:"";
+  position:absolute;
+  left: 25px;
+  top: 8px;
+  bottom: 8px;
+  width:1px;
+  background: rgba(148,163,184,.42);
+  border-radius:999px;
+}
+
+#npReportRoot #tab-hr .rfRow{
+  position:relative;
+  display:block;
+  padding: 12px 12px 12px 39px; /* shrink box ~5px while keeping axis room */
+  border:1px solid rgba(226,232,240,.95);
+  border-radius:12px;
+  background:#fff;
+}
+#npReportRoot #tab-hr .rfRow + .rfRow{ margin-top: var(--rfGap); }
+
+#npReportRoot #tab-hr .rfMark{
+  position:absolute;
+  left: 25px;          /* aligns with the existing rail */
+  top: 0;
+  bottom: 0;
+  width: 0;
+  pointer-events:none;
+}
+
+/* colored connector + arrowhead, centered to the CARD (rfRow) */
+
+/* arrow head is placed exactly at the end of the line (no gap) */
+
+/* text */
+#npReportRoot #tab-hr .rfText{ min-width:0; }
+#npReportRoot #tab-hr .rfTitle{
+  font-size:15px;
+  margin-top:4px;
+  margin-left:6px;
+  font-weight:500;
+  line-height:1.25;
+  color: rgba(15,23,42,.92);
+}
+#npReportRoot #tab-hr .rfTags{
+  margin-top:3px;
+  margin-left:6px;
+  font-size:13px;
+  font-weight:400;
+  line-height:1.25;
+  word-break: keep-all;
+}
+
+#npReportRoot #tab-hr #rfClosing{
+  margin-top:12px !important;
+  margin-bottom:3px;
+}
+
+
+/* step color accents (used for arrow color) */
+#npReportRoot #tab-hr .rfRow.r1{ --rfArrow: rgba(64,177,230,.95); }
+#npReportRoot #tab-hr .rfRow.r2{ --rfArrow: rgba(7,77,129,.92); }
+#npReportRoot #tab-hr .rfRow.r3{ --rfArrow: rgba(32,203,194,.95); }
+#npReportRoot #tab-hr .rfRow.r4{ --rfArrow: rgba(250,187,5,.95); }
+#npReportRoot #tab-hr .rfRow.r5{ --rfArrow: rgba(249,123,23,.95); }
+#npReportRoot #tab-hr .rfRow.r6{ --rfArrow: rgba(148,163,184,.95); }
+
+/* sequential reveal (top -> bottom) */
+#npReportRoot #tab-hr .rfFlow.is-animated .rfRow{
+  opacity:0;
+  transform: translateY(-30px);
+  /* animation starts when .rf-start is added by JS */
+  will-change: opacity, transform;
+}
+
+#npReportRoot #tab-hr .rfFlow.is-animated.rf-start .rfRow{
+  animation: rfFadeInUp 1040ms cubic-bezier(.2,.8,.2,1) forwards;
+  will-change: opacity, transform;
+}
+
+@keyframes rfFadeInUp{
+  from{ opacity:0; transform: translateY(-30px); }
+  to{ opacity:1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #npReportRoot #tab-hr .rfFlow.is-animated .rfRow{
+    opacity:1 !important;
+    transform:none !important;
+    animation:none !important;
+  }
+}
+
+/* =========================================================
+   Components / Alignment Strip
+========================================================= */
+
+      /* =========================================================
+   International Alignment Strip (Footer Above) - PNG Logos
+========================================================= */
+      #npReportRoot .alignmentStrip{
+        margin-top: 22px;
+        padding: 30px 24px 30px; 
+        background: #f8f8f8;
+        width: 100%;
+        border-radius: 14px;
+        text-align: center;
+      }
+      #npReportRoot .alignmentInner{
+        max-width: var(--containerMax, 1180px);
+        margin: 0 auto;
+      } 
+      #npReportRoot .alignmentLogos{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 5px 18px; 
+        margin-bottom: 20px;
+      } 
+      #npReportRoot .alLogo{
+        height: 40px;
+        min-width: 0;
+        padding: 6px 10px;
+        border-radius: 12px;
+        background: transparent; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #npReportRoot .alImg{
+        height: 24px;
+        width: auto;
+        max-width: 150px;
+        object-fit: contain;
+        filter: grayscale(100%);
+        opacity: 0.6;
+        display: block;
+      }
+      #npReportRoot .alFallback{
+        display: none;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: rgba(15, 23, 42, 0.5);
+        white-space: nowrap;
+      }
+      #npReportRoot .alignmentNote{
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.6;
+        color: var(--text);
+        margin: 2px auto 0;
+        max-width: 980px;
+      }
+      #npReportRoot .alignmentNote .em{
+        font-weight: 600;
+        color: var(--text-strong, var(--text));
+      } 
+
+      
+
+      /* =========================================================
+   Utilities
+========================================================= */
+
+      
+      #npReportRoot .uNoteTight{
+        margin-top: -6px;
+        margin-bottom: 14px;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+      #npReportRoot .uNoteTight2{
+        margin-top: -6px;
+        margin-bottom: 16px;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+      #npReportRoot .uMt0{
+        margin-top: 0px;
+      }
+      #npReportRoot .uMt6Lh{
+        margin-top: 6px;
+        line-height: 1.55;
+      }
+      #npReportRoot .uMt8Lh{
+        margin-top: 8px;
+        line-height: 1.55;
+      }
+      #npReportRoot .uMt10{
+        margin-top: 10px;
+      }
+      #npReportRoot .uMt12{
+        margin-top: 12px;
+      }
+      #npReportRoot .uMt14{
+        margin-top: 14px;
+      }
+      #npReportRoot .uMb8{
+        margin-bottom: 8px;
+      }
+      #npReportRoot .uW110{
+        width: 110px;
+      }
+      #npReportRoot .uW220{
+        width: 220px;
+      }
+      #npReportRoot .uTopRule{
+        margin-top: 10px;
+        line-height: 1.55;
+        padding-top: 10px;
+        border-top: 1px solid rgba(226, 232, 240, 0.85);
+      }
+      #npReportRoot .uLh155{
+        line-height: 1.55;
+      }
+      #npReportRoot .uMt6{
+        margin-top: 6px;
+      }
+      #npReportRoot .uMt11{
+        margin-top: 11px;
+      }
+      #npReportRoot .uMt10Lh{
+        margin-top: 10px;
+        line-height: 1.55;
+      }
+      #npReportRoot .uMt12Lh{
+        margin-top: 12px;
+        line-height: 1.55;
+      }
+      #npReportRoot .uListTight{
+        margin: 8px 0 0 -24px;
+        line-height: 1.6;
+      }
+      #npReportRoot .uListTight2{
+        margin: 10px 0 0 -24px;
+        line-height: 1.6;
+      }
+      #npReportRoot .uH140{
+        height: 140px;
+      }
+      #npReportRoot .uW120{
+        width: 120px;
+      }
+      #npReportRoot .uW140{
+        width: 140px;
+      }
+      #npReportRoot .uW160{
+        width: 160px;
+      }
+      #npReportRoot .roleFitGrid{
+        align-items: stretch;
+        gap: 12px;
+        grid-template-columns: minmax(0, 1.15fr) minmax(340px, 0.85fr);
+      }
+      #npReportRoot .roleFitLeftCol{
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-width: 0;
+      }
+      #npReportRoot .roleFitRightCol{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        min-width: 340px;
+        max-width: 520px;
+      }
+
+      /* ===== Cleanups (v1) ===== */
+      #npReportRoot .tableFrame{
+        margin-top: 10px;
+        overflow: auto;
+        border-top: 1px solid rgba(226, 232, 240, 0.85);
+        border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+      }
+      #npReportRoot .rslOneLine{
+        margin-top: 10px;
+        margin-bottom: 12px;
+        font-size: 20px;
+        font-weight: 500;
+        font-style: italic;
+        letter-spacing: -0.02em;
+        color: rgba(15, 23, 42, 0.9);
+      }
+      #npReportRoot .chartCohortWrap{
+        margin-top: 30px;
+        height: 271px;
+        min-height: 104px;
+        max-height: 271px;
+      }
+      #npReportRoot .centerTiny{
+        margin-top: 8px;
+        margin-bottom: 11px;
+        font-size: 15px;
+        text-align: center;
+      }
+
+      /* =========================================================
+   PATCH OVERRIDES (consolidated) - v16
+   Keeps latest fixes in one place.
+========================================================= */
+
+      /* =========================================================
+   Mobile cleanup (legacy TOC spacing removal)
+   - Keeps desktop rendering identical
+   - Fixes mobile section header being pushed/clipped by legacy negative offsets
+========================================================= */
+
+      /* =========================================================
+   Mobile spacing corrections (v17)
+   1) Add air between Identity chip row and Decision Compression (+10px)
+   2) Remove excess gap between Decision Compression and Section 1 title
+========================================================= */
+
+      /* =========================================================
+   ORDER 3-2-1-4: spacing fixes (v2)
+   - Reduce the first section top gap
+   - Prevent bottom clipping between CFF -> Reasoning Control
+   - Avoid excessive blank space after last section
+========================================================= */
+      #npReportRoot #tab-rsl.grid{
+        margin-top: 8px;
+      }
+      #npReportRoot #tab-cff .card{
+        overflow: visible;
+      }
+      #npReportRoot #tab-cff{
+        padding-bottom: 6px;
+      }
+      #npReportRoot #tab-authorship{
+        margin-top: 14px;
+      }
+      #npReportRoot #tab-hr{
+        margin-bottom: 10px;
+      } /* =========================================================
+   RSL top spacing tighten (v4)
+========================================================= */
+      #npReportRoot #tab-rsl{
+        margin-top: 0;
+      }
+      #npReportRoot #tab-rsl .sectionBlock{
+        padding-top: 0;
+      }
+      #npReportRoot #tab-rsl .cardHeader{
+        margin-top: 8px;
+      } /* =========================================================
+   HARD FIX: first section top gap
+   .grid has margin-top:16px globally.
+   Force the FIRST grid section (RSL) to zero.
+========================================================= */
+      #npReportRoot main > section.grid:first-of-type, #npReportRoot .container > section.grid:first-of-type, #npReportRoot section.grid#tab-rsl{
+        margin-top: 0;
+        scroll-margin-top: 0;
+      } /* =========================================================
+   HARD FIX v6: remove header-to-first-section gap
+   Cause: .container has padding-top:18px
+   Apply only to the FIRST container right after </header>
+========================================================= */
+      #npReportRoot header + .container{
+        padding-top: 0;
+      } /* =========================================================
+   HARD FIX v7: shrink header bottom padding
+   Cause: .topbar has padding-bottom:14px
+========================================================= */
+      #npReportRoot #topbar.topbar{
+        padding-bottom: 0;
+      }
+
+      /* =========================================================
+   Responsive
+========================================================= */
+
+/* =========================================================
+   Responsive & Accessibility
+   Consolidated @media blocks (safe merge)
+========================================================= */
+@media (max-width: 980px) {
+#npReportRoot .metaRow{
+          display: flex;
+          flex-wrap: wrap;
+          gap: 14px;
+          justify-content: flex-start;
+        }
+        #npReportRoot .metrics{
+          grid-template-columns: repeat(1, 1fr);
+        }
+        #npReportRoot .twoCol{
+          grid-template-columns: 1fr;
+        }
+        #npReportRoot .rightMeta{
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: flex-end;
+        }
+        #npReportRoot .verifyText{
+          max-width: 340px;
+        }
+
+#npReportRoot #tab-hr .twoCol{
+          grid-template-columns: 1fr !important;
+        }
+        #npReportRoot #tab-hr .twoCol > *{
+          min-width: 0 !important;
+          max-width: none !important;
+        }
+        #npReportRoot #tab-hr .panel{
+          min-width: 0 !important;
+          max-width: none !important;
+        }
+}
+
+@media (max-width: 680px) {
+html.npReport-scope body{
+          overflow-x: hidden;
+        }
+        #npReportRoot .container{
+          padding: 12px calc(24px + env(safe-area-inset-left)) 44px
+            calc(24px + env(safe-area-inset-right));
+        }
+        #npReportRoot .headerTopRow{
+          flex-direction: column;
+          gap: 12px;
+        }
+        #npReportRoot .headerRight{
+          width: 100%;
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+        #npReportRoot .qrBox{
+          width: 108px;
+        }
+        #npReportRoot .qrBox img{
+          width: 84px;
+          height: 84px;
+        }
+        #npReportRoot .verifyText{
+          text-align: left;
+          max-width: none;
+        }
+        #npReportRoot .brandLogo{
+          width: var(--logoW-m);
+        }
+		#npReportRoot .brandline{
+		  font-size: 11px;
+		}
+        #npReportRoot .title{
+          font-size: 28px;
+        }
+        #npReportRoot .subtitle{
+          font-size: 14px;
+          margin-top: 18px;
+        }
+        #npReportRoot .cardTitle{
+          font-size: 20px;
+        }
+        #npReportRoot .chartCanvasWrap{
+          height: var(--chartH-m);
+          min-height: var(--chartH-m);
+          max-height: var(--chartH-m);
+        }
+        #npReportRoot .chartBox.radarBox .chartCanvasWrap{
+          height: var(--radarH-m);
+          min-height: var(--radarH-m);
+          max-height: var(--radarH-m);
+        }
+        #npReportRoot .signatureBox .chartCanvasWrap{
+          max-width: var(--sig-m);
+          height: var(--sig-m);
+          min-height: var(--sig-m);
+          max-height: var(--sig-m);
+        } 
+        #npReportRoot .metaRow{
+          grid-template-columns: 1fr;
+          gap: 10px;
+        } 
+        #npReportRoot #qrBlock{
+          display: none !important;
+        }
+        #npReportRoot #tab-cff .panel table thead th:nth-child(4), #npReportRoot #tab-cff .panel table tbody td:nth-child(4){
+          display: none !important;
+        } 
+        #npReportRoot #tab-cff .panel table{
+          table-layout: fixed;
+        } 
+        #npReportRoot #tab-cff .panel table thead th:nth-child(1){
+          width: 72px !important;
+        }
+        #npReportRoot #tab-cff .panel table tbody td:nth-child(1){
+          width: 72px !important;
+        } 
+        #npReportRoot #tab-cff .panel table thead th:nth-child(2){
+          width: 72px !important;
+          text-align: left !important;
+          padding-right: 8px !important;
+          white-space: nowrap !important;
+        }
+        #npReportRoot #tab-cff .panel table tbody td:nth-child(2){
+          width: 72px !important;
+          text-align: left !important;
+          padding-right: 8px !important;
+          white-space: nowrap !important;
+        } 
+        #npReportRoot #tab-cff .panel table thead th:nth-child(3), #npReportRoot #tab-cff .panel table tbody td:nth-child(3){
+          width: auto !important;
+          padding-left: 10px !important;
+          padding-right: 8px !important;
+        }
+         #npReportRoot .npFlowTitle{
+          font-size: 22px !important;
+        }
+         #npReportRoot .npFlowTags{
+          font-size: 18px !important;
+        }
+        #npReportRoot #tab-rsl .arcTableFrame table thead th:nth-child(2), #npReportRoot #tab-rsl .arcTableFrame table tbody td:nth-child(2){
+          text-align: right !important;
+          padding-right: 12px;
+        }
+        #npReportRoot #tab-rsl .arcTableFrame table tbody tr td{
+          border-bottom: 1px solid var(--border) !important;
+        }
+        #npReportRoot #tab-rsl .arcTableFrame table tbody tr:last-child td{
+          border-bottom: 0 !important;
+        } 
+        #npReportRoot #tab-rsl .arcTableFrame table thead{
+          display: none !important;
+        }
+        #npReportRoot #tab-rsl .arcTableFrame table tbody td:last-child{
+          display: none !important;
+        } 
+        #npReportRoot #tab-rsl .arcTableFrame{
+          border-top: 0 !important;
+          border-bottom: 0 !important;
+        }
+        #npReportRoot #tab-rsl .arcTableFrame table{
+          border-collapse: separate;
+          border-spacing: 0 10px;
+        }
+        #npReportRoot #tab-rsl .arcTableFrame table tbody tr td{
+          padding: 10px 10px !important;
+          background: transparent;
+        } 
+        #npReportRoot #tab-rsl .arcTableFrame table tbody tr td{
+          border-bottom: 0 !important;
+        }
+        #npReportRoot .alignmentStrip{
+          margin-top: 18px;
+          padding: 16px 14px 16px;
+        }
+        #npReportRoot .alignmentLogos{
+          gap: 12px 18px;
+          margin-bottom: 12px;
+        }
+        #npReportRoot .alLogo{
+          height: 38px;
+          padding: 6px 8px;
+          border-radius: 10px;
+        }
+        #npReportRoot .alImg{
+          height: 22px;
+          max-width: 140px;
+        }
+        #npReportRoot .alignmentNote{
+          font-size: 13px;
+          padding: 0 10px;
+        }
+
+        /* =========================================================
+           Mobile: Reasoning by Dimension (RSL table) header line
+           - Bold dimension + Score
+           - Ensure 'Score 4' spacing and right alignment
+           - Add small air before observation text
+        ========================================================= */
+        #npReportRoot #tab-rsl .arcHeadLine{
+          display:flex;
+          align-items:baseline;
+          justify-content:space-between;
+          gap:10px;
+          margin-bottom: 6px;
+        }
+        #npReportRoot #tab-rsl .arcDimLabel{
+          font-weight:600;
+        }
+        #npReportRoot #tab-rsl .arcScoreWrap{
+          margin-left:auto;
+          text-align:right;
+          white-space:nowrap;
+          font-weight:600;
+        }
+        #npReportRoot #tab-rsl .arcScoreWord, #npReportRoot #tab-rsl .arcScoreDot{
+          font-weight:600;
+        }
+        #npReportRoot #tab-rsl .arcObsMobile{
+          margin-top:0;
+        }
+
+}
+
+
+
+
+/* =========================================================
+   Control pattern multiline spacing fix
+   - Improves readability when value wraps to 2 lines on mobile
+========================================================= */
+#npReportRoot #aiPatternLabel{
+  line-height: 1.4;
+  display: inline-block;
+}
+
+
+/* numbered step markers (no lines, no arrows) */
+#npReportRoot #tab-hr .rfMark{
+  position:absolute;
+  left:25px;
+  top:50%;
+  transform: translate(-50%, -50%);
+  width:22px;
+  height:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+
+#npReportRoot #tab-hr .rfStep{
+  font-size:16px;
+  font-weight:700;
+  line-height:1;
+  color: var(--rfArrow, rgba(32,203,194,.95));
+}
+
+/* assign numbers */
+#npReportRoot #tab-hr .rfRow.r1 .rfStep::before{ content:"①"; }
+#npReportRoot #tab-hr .rfRow.r2 .rfStep::before{ content:"②"; }
+#npReportRoot #tab-hr .rfRow.r3 .rfStep::before{ content:"③"; }
+#npReportRoot #tab-hr .rfRow.r4 .rfStep::before{ content:"④"; }
+#npReportRoot #tab-hr .rfRow.r5 .rfStep::before{ content:"⑤"; }
+#npReportRoot #tab-hr .rfRow.r6 .rfStep::before{ content:"⑥"; }
+
+
+/* Mobile: Reasoning by Dimension header tweak (v18) */
+@media (max-width: 680px){
+  #npReportRoot #tab-rsl .arcHeadLine{ margin-bottom:6px !important; }
+  #npReportRoot #tab-rsl .arcDimLabel{ font-size:14px !important; font-weight:600; }
+  #npReportRoot #tab-rsl .arcScoreWrap{ font-size:14px !important; font-weight:600; }
+
+#npReportRoot #tab-hr .rfTitle{ font-size:14px; }
+}
+
+/* === CFF Indicator Summary: remove Status column (v1.1) === */
+#npReportRoot #tab-cff table thead th:nth-child(4), #npReportRoot #tab-cff table tbody td:nth-child(4){
+  display: none !important;
+}
