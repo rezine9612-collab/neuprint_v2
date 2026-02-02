@@ -3,6 +3,8 @@
 declare global {
   interface Window {
     renderNeuPrint?: (reportObject: any) => void;
+    report?: any;
+    DEV_REPORT?: any;
   }
 }
 
