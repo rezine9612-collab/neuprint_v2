@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Script from "next/script";
 
 export default function AnalyzePage() {
   const router = useRouter();
@@ -276,6 +277,7 @@ export default function AnalyzePage() {
 
   return (
     <>
+      <Script id="npHome-scope" strategy="beforeInteractive">{`document.documentElement.classList.add('npHome-scope');`}</Script>
       <style jsx global>{`
 
     html.npHome-scope .material-symbols-outlined{
