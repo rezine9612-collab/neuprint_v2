@@ -145,7 +145,7 @@ export function runReportV3() {
               flow.classList.add('rf-start');
             };
   
-            if('IntersectionObserver' in window){
+            if (typeof (window as any).IntersectionObserver !== 'undefined') {
               const io = new IntersectionObserver((entries)=>{
                 for(const e of entries){
                   if(e.isIntersecting){
@@ -158,7 +158,7 @@ export function runReportV3() {
               io.observe(flow);
             }else{
               // Fallback: start after 1s delay
-              window.setTimeout(()=>{ start(); }, 0);
+              setTimeout(()=>{ start(); }, 0);
             }
           }catch(e){
             // keep silent in production
